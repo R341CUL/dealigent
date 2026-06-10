@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #f6fafc;
+  --color-primary: #006578;
+  --color-primary-light: #00899e;
+  --color-teal: #00D4F0;
+  --color-secondary: #175ead;
+  --color-sidebar-from: #003d79;
+  --color-sidebar-to: #001f26;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+  --color-success: #10b981;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background-color: #f6fafc;
+  font-family: 'Inter', sans-serif;
+  color: #1a2332;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  margin: 0;
+}
+
+p { margin: 0; }
+
+code, pre, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Glass morphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 4px 24px rgba(0, 101, 120, 0.10);
+}
+
+.glass-dark {
+  background: rgba(0, 31, 38, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.sidebar-gradient {
+  background: linear-gradient(180deg, #003d79 0%, #001f26 100%);
+}
+
+.teal-glow {
+  box-shadow: 0 0 24px rgba(0, 212, 240, 0.30);
+}
+
+/* Severity pills */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.pill-critical { background: rgba(239,68,68,0.12); color: #ef4444; }
+.pill-high     { background: rgba(245,158,11,0.12); color: #d97706; }
+.pill-medium   { background: rgba(59,130,246,0.12); color: #3b82f6; }
+.pill-low      { background: rgba(16,185,129,0.12); color: #10b981; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,101,120,0.25); border-radius: 4px; }
+
+/* Animations */
+@keyframes pulse-teal {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,240,0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(0,212,240,0); }
+}
+
+@keyframes stream-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-stream    { animation: stream-in 0.2s ease forwards; }
+.animate-pulse-teal { animation: pulse-teal 2s infinite; }
+.animate-fade-up   { animation: fade-up 0.4s ease forwards; }
+
+.skeleton {
+  background: linear-gradient(90deg, rgba(0,101,120,0.06) 25%, rgba(0,101,120,0.12) 50%, rgba(0,101,120,0.06) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+/* ── Print / PDF export ── */
+@media print {
+  @page { size: A4; margin: 14mm 14mm; }
+  body { background: white !important; }
+  /* Hide everything except the report */
+  aside, .no-print { display: none !important; }
+  main { margin-left: 0 !important; }
+  .print-page { page-break-after: always; }
+  .print-avoid-break { page-break-inside: avoid; }
+  .report-root { padding: 0 !important; }
+  /* Force colour rendering for all report elements */
+  .report-root * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  /* White cards for content sections, but NOT the cover */
+  .glass, .report-card {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+  }
+  /* Cover page keeps its dark gradient */
+  .report-cover {
+    background: linear-gradient(135deg, #003d79 0%, #001e2b 100%) !important;
+    border: none !important;
+    color: white !important;
+  }
+  .report-cover * { color: inherit !important; }
+  /* Print page header with logo on every page after cover */
+  .print-page-header {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+}

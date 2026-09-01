@@ -1,0 +1,28 @@
+# Render Blueprint for the Dealigent FastAPI backend.
+# Deploy: Render Dashboard → New → Blueprint → connect this repo → apply.
+# Then set the secret env vars (marked sync:false) in the Render dashboard.
+services:
+  - type: web
+    name: dealigent-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      # ── At least one LLM key is required (Cerebras recommended) ──
+      - key: CEREBRAS_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: APIFY_API_KEY
+        sync: false
+      # ── Set this to your Vercel frontend URL after it deploys ──
+      # e.g. https://dealigent.vercel.app
+      - key: CORS_ORIGINS
+        sync: false

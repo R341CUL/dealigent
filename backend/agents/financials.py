@@ -206,14 +206,14 @@ def _build_ticker_list(profile_or_ticker, company, country) -> list[str]:
 
 # ── Known public sector peers for benchmarking when target is private ──
 SECTOR_PEERS = {
-    "steel":          ["SAIL.NS", "JSW.NS", "TATASTEEL.NS", "X", "NUE"],
+    "steel":          ["SAIL.NS", "JSWSTEEL.NS", "TATASTEEL.NS", "NUE", "STLD"],
     "basic materials":["LIN", "APD", "ECL", "SHW"],
     "metals":         ["TATASTEEL.NS", "SAIL.NS", "AA", "FCX", "NUE"],
     "manufacturing":  ["MMM", "HON", "GE", "EMR", "ROK"],
     "industrials":    ["HON", "GE", "MMM", "UNP", "UPS"],
     "software":       ["MSFT", "CRM", "ADBE", "NOW", "WDAY"],
     "technology":     ["AAPL", "MSFT", "GOOGL", "META", "NVDA"],
-    "saas":           ["CRM", "NOW", "WDAY", "ADBE", "HubSpot"],
+    "saas":           ["CRM", "NOW", "WDAY", "ADBE", "HUBS"],
     "healthcare":     ["JNJ", "UNH", "PFE", "ABBV", "MRK"],
     "pharmaceutical": ["PFE", "ABBV", "MRK", "LLY", "BMY"],
     "consumer":       ["PG", "KO", "PEP", "MDLZ", "CL"],
@@ -222,7 +222,7 @@ SECTOR_PEERS = {
     "financial":      ["JPM", "BAC", "GS", "MS", "WFC"],
     "logistics":      ["UPS", "FDX", "CHRW", "EXPD", "XPO"],
     "hr technology":  ["WDAY", "ADP", "PAYC", "PCTY", "UKG"],
-    "fintech":        ["SQ", "PYPL", "V", "MA", "ADYEY"],
+    "fintech":        ["XYZ", "PYPL", "V", "MA", "ADYEY"],
 }
 
 
@@ -230,7 +230,7 @@ def _get_sector_peers(sector: str) -> list[str]:
     blob = sector.lower()
     for key, tickers in SECTOR_PEERS.items():
         if key in blob:
-            return tickers[:3]
+            return tickers  # fetch_sector_peers caps at 3 *after* excluding the target
     return []
 
 

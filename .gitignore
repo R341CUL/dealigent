@@ -10,7 +10,6 @@ backend/chroma_db/
 # Secrets — never commit real keys
 backend/.env
 .mcp.json
-.claude/
 **/.DS_Store
 
 # Node
@@ -22,3 +21,7 @@ frontend/dist/
 *.log
 .vscode/
 .idea/
+
+# CLI output
+reports/
+backend/reports/

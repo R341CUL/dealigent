@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     groq_api_key:      str = ""
@@ -9,7 +9,6 @@ class Settings(BaseSettings):
     chroma_persist_dir:str = "./chroma_db"
     cors_origins:      str = "http://localhost:5173"
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 settings = Settings()

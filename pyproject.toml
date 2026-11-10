@@ -1,0 +1,31 @@
+[project]
+name = "dealigent"
+version = "1.1.0"
+description = "Agentic M&A due diligence: 12 AI agents, live Yahoo Finance data, deterministic valuation."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Anish Chatterjee" }, { name = "Anny Mondal" }]
+keywords = ["m&a", "due-diligence", "multi-agent", "llm", "fastapi", "rag", "valuation", "fintech"]
+
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+pythonpath = ["backend"]
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py312"
+extend-exclude = ["backend/venv", "frontend"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E701", "E702", "E731", "B008", "B904", "UP007"]
+
+[tool.ruff.lint.per-file-ignores]
+"showcase/build_ppt.py" = ["E501"]
+"scripts/build_readme_assets.py" = ["E501"]   # inline HTML/CSS
+
+[tool.ruff.lint.isort]
+known-first-party = ["agents", "api", "core", "main"]

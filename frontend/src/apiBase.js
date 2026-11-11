@@ -1,7 +1,8 @@
 // Route all relative /api and /stream calls to the hosted backend.
-// In local dev the Vite proxy handles these; in production there is no proxy,
-// so we prepend the deployed backend origin. Override with VITE_API_URL if needed.
-const API_BASE = (import.meta.env.VITE_API_URL || 'https://dealigent-api.onrender.com').replace(/\/$/, '')
+// In local dev the Vite proxy handles these (API_BASE is empty); in production there is
+// no proxy, so we prepend the deployed backend origin. Override with VITE_API_URL if needed.
+const DEFAULT_API = import.meta.env.PROD ? 'https://dealigent-api.onrender.com' : ''
+const API_BASE = (import.meta.env.VITE_API_URL || DEFAULT_API).replace(/\/$/, '')
 
 const needsBase = (u) => typeof u === 'string' && (u.startsWith('/api') || u.startsWith('/stream'))
 const withBase = (u) => (needsBase(u) ? API_BASE + u : u)
